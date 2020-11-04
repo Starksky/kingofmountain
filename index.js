@@ -79,6 +79,10 @@ function OnMessage(msg, info)
 				});
 			}
 			break;
+			case 10003:{
+				clients[object_json.id_player].leave = false
+			}
+			break;
 		}
 	}
 	catch(err){}
@@ -87,6 +91,9 @@ function OnMessage(msg, info)
 setInterval(function(){
 	clients.forEach(function(item, index){
 		if(!item.leave)
+		{
 			item.send(JSON.stringify({msgid:10003}))
+			item.leave = true
+		}
 	});
 },3000);
