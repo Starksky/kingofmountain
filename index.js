@@ -8,6 +8,7 @@ class Client
 		this.address = info.address;
 		this.port = info.port;
 		this.leave = false;
+		this.close = false;
 		if(player != null)
 		{
 			this.fall = player.fall;
@@ -94,6 +95,13 @@ setInterval(function(){
 		{
 			item.send(JSON.stringify({msgid:10003}))
 			item.leave = true
+		}
+		else if(!item.close)
+		{
+			clients.forEach(function(item1, index1){
+					if(!index1 != index)
+						item.send(JSON.stringify({msgid:10002, id_player:index, player:item}))
+			});
 		}
 	});
 },3000);
