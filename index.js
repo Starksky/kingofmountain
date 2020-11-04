@@ -22,12 +22,8 @@ server.on('error', (err) => {
 });
 
 server.on('message', (msg, rinfo) => {
-  //console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
-
-	server.send('привет ANDROID', rinfo.port, rinfo.address, function(){
-		console.log('send message');
-	});
-
+  	console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+	OnMessage(msg, rinfo)
 });
 
 server.on('listening', () => {
