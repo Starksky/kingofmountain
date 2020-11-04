@@ -64,7 +64,7 @@ function OnMessage(msg, info)
 				client.send(JSON.stringify({msgid:10001, id_player:id, players:clients}))
 				clients.forEach(function(item, index){
 					if(!item.leave)
-						item.send({msgid:10002, id_player:id, player:client})
+						item.send(JSON.stringify({msgid:10002, id_player:id, player:client}))
 				});
 				clients.push(client)
 			}
@@ -75,7 +75,7 @@ function OnMessage(msg, info)
 				
 				clients.forEach(function(item, index){
 					if(!item.leave && object_json.id_player != index)
-						item.send({msgid:10002, id_player:object_json.id_player, player:client})
+						item.send(JSON.stringify({msgid:10002, id_player:object_json.id_player, player:client}))
 				});
 			}
 			break;
