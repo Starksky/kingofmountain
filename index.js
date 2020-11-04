@@ -5,10 +5,9 @@ var clients = []
 class Client
 {
 	constructor(info, player = null){
-		this.isOpen = true;
 		this.address = info.address;
 		this.port = info.port;
-		this.leave = !this.isOpen;
+		this.leave = false;
 		if(player != null)
 		{
 			this.fall = player.fall;
@@ -29,8 +28,7 @@ class Client
 		
 		server.send(msg, this.port, this.address, function(error){
 		  if(error){
-		    this.isOpen = false
-		    this.leave = !this.isOpen
+		    this.leave = true
 		  }
 		});
 	}
@@ -64,7 +62,7 @@ function OnMessage(msg, info)
 				var client = new Client(info, object_json.player)
 				client.send(JSON.stringify({msgid:10001, id_player:clients.length, players:clients}))
 				clients.forEach(function(item, index){
-					if(item.isOpen)
+					if(!item.leave)
 						item.send({msgid:10002, id_player:clients.length, player:client})
 				});
 				clients.push(client)
@@ -75,7 +73,7 @@ function OnMessage(msg, info)
 				clients[object_json.id_player] = client
 				
 				clients.forEach(function(item, index){
-					if(item.isOpen && object_json.id_player != index)
+					if(!item.leave && object_json.id_player != index)
 						item.send({msgid:10002, id_player:object_json.id_player, player:client})
 				});
 			}
@@ -87,7 +85,7 @@ function OnMessage(msg, info)
 
 setInterval(function(){
 	clients.forEach(function(item, index){
-		if(item.isOpen)
+		if(!item.leave)
 			item.send(JSON.stringify({msgid:10003}))
 	});
 },3000);
