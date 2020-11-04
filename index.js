@@ -10,9 +10,10 @@ server.on('message', (msg, rinfo) => {
   console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
 
 
-  	server.send('привет ANDROID',0,14, rinfo.port, rinfo.address);
-  	console.log('send message');
-
+  	server.send('привет ANDROID', rinfo.port, rinfo.address, function(){
+  		console.log('send message');
+  	});
+  	
   
 });
 
