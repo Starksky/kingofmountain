@@ -1,6 +1,6 @@
 var dgram = require('dgram');
 var server = dgram.createSocket('udp4');
-var clients = []
+var clients = [];
 
 class Client
 {
@@ -59,11 +59,12 @@ function OnMessage(msg, info)
 		switch(object_json.msgid)
 		{
 			case 10001:{
+				var id = clients.length
 				var client = new Client(info, object_json.player)
-				client.send(JSON.stringify({msgid:10001, id_player:clients.length, players:clients}))
+				client.send(JSON.stringify({msgid:10001, id_player:id, players:clients}))
 				clients.forEach(function(item, index){
 					if(!item.leave)
-						item.send({msgid:10002, id_player:clients.length, player:client})
+						item.send({msgid:10002, id_player:id, player:client})
 				});
 				clients.push(client)
 			}
