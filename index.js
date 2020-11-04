@@ -9,15 +9,10 @@ server.on('error', (err) => {
 server.on('message', (msg, rinfo) => {
   console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
 
-
-  	setInterval(function(){
-  		server.send('привет ANDROID', rinfo.port, rinfo.address, function(){
-  			console.log('send message');
-  		});
-  	},3000);
-
-  	
-  
+	server.send('привет ANDROID', rinfo.port, rinfo.address, function(){
+		console.log('send message');
+	});
+	
 });
 
 server.on('listening', () => {
