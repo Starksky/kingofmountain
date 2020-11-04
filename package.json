@@ -10,7 +10,6 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "dgram": "^1.0.1",
     "express": "^4.17.1",
     "express-ws": "^4.0.0",
     "socket.io": "^2.3.0"
@@ -19,5 +18,9 @@
     "got": "^11.3.0",
     "tape": "^4.7.0"
   },
+
+  "keywords": [
+    "node"
+  ],
   "license": "MIT"
 }
