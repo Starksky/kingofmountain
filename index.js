@@ -1,5 +1,20 @@
 var dgram = require('dgram');
 var server = dgram.createSocket('udp4');
+var clients = []
+
+class Client
+{
+	constructor(info){
+		this.isOpen = true;
+		this.address = info.address;
+		this.port = info.port;
+	}
+
+	send(msg)
+	{
+		server.send(msg, this.port, this.address)
+	}
+}
 
 server.on('error', (err) => {
   console.log(`server error:\n${err.stack}`);
@@ -7,12 +22,12 @@ server.on('error', (err) => {
 });
 
 server.on('message', (msg, rinfo) => {
-  console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+  //console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
 
 	server.send('привет ANDROID', rinfo.port, rinfo.address, function(){
 		console.log('send message');
 	});
-	
+
 });
 
 server.on('listening', () => {
@@ -21,3 +36,25 @@ server.on('listening', () => {
 });
 
 server.bind({address:"78.24.222.166",port:22023});
+
+function OnMessage(msg, info)
+{
+	try
+	{
+		var object_json = JSON.parse(msg)
+		switch(object_json.msgid)
+		{
+			10001:{
+				clients.push(new Client(info))
+			}
+			break;
+			10002:{
+				var client = new Client(info)
+				client.send("it's work!")
+				client.send(`count users: ${clients.length}`)
+			}
+			break;
+		}
+	}
+	catch(err){}
+}
