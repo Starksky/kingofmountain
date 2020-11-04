@@ -8,6 +8,7 @@ class Client
 		this.isOpen = true;
 		this.address = info.address;
 		this.port = info.port;
+		this.leave = !this.isOpen;
 		if(player != null)
 		{
 			this.fall = player.fall;
@@ -29,6 +30,7 @@ class Client
 		server.send(msg, this.port, this.address, function(error){
 		  if(error){
 		    this.isOpen = false
+		    this.leave = !this.isOpen
 		  }
 		});
 	}
