@@ -28,7 +28,7 @@ class Client
 		
 		server.send(msg, this.port, this.address, function(error){
 		  if(error){
-		    this.leave = true
+		    leave = true
 		  }
 		});
 	}
