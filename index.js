@@ -4,18 +4,31 @@ var clients = []
 
 class Client
 {
-	constructor(info){
+	constructor(info, player = null){
 		this.isOpen = true;
 		this.address = info.address;
 		this.port = info.port;
+		if(player != null)
+		{
+			this.fall = player.fall;
+			this.idle = player.idle;
+			this.kickLeftPressed = player.kickLeftPressed;
+			this.kickRightPressed = player.kickRightPressed;
+			this.leave = player.leave;
+			this.leftPressed = player.leftPressed;
+			this.name = player.name;
+			this.position = player.position;
+			this.rightPressed = player.rightPressed;			
+		}
+
 	}
 
 	send(msg)
 	{
-		server.send(msg, this.port, this.address, (err) => {
-			if(err.length)
-		  		this.isOpen = false
-		});
+		try{
+			server.send(msg, this.port, this.address);
+		}
+		catch(err){ this.isOpen = false }
 	}
 }
 
@@ -44,19 +57,23 @@ function OnMessage(msg, info)
 		switch(object_json.msgid)
 		{
 			case 10001:{
-				var client = new Client(info)
-				client.send(JSON.stringify({msgid:10001}))
+				var client = new Client(info, object_json.player)
+				client.send(JSON.stringify({msgid:10001, id_player:clients.length, players:clients}))
+				clients.forEach(function(item, index){
+					if(item.isOpen)
+						item.send({msgid:10002, id_player:clients.length, player:client})
+				});
 				clients.push(client)
 			}
 			break;
 			case 10002:{
-				var client = new Client(info)
+				var client = new Client(info, object_json.player)
+				clients[object_json.id_player] = client
 				
-				var off = 0;
 				clients.forEach(function(item, index){
-					if(!item.isOpen) off++
+					if(item.isOpen && object_json.id_player != index)
+						item.send({msgid:10002, id_player:object_json.id_player, player:client})
 				});
-				client.send(JSON.stringify({msgid:10002, users:clients.length - off, off:off}))
 			}
 			break;
 		}
@@ -67,6 +84,6 @@ function OnMessage(msg, info)
 setInterval(function(){
 	clients.forEach(function(item, index){
 		if(item.isOpen)
-			item.send("проверка")
+			item.send(JSON.stringify({msgid:10003}))
 	});
-},1000);
+},3000);
