@@ -15,4 +15,4 @@ server.on('listening', () => {
   console.log(`server listening ${address.address}:${address.port}`);
 });
 
-server.bind({address:"78.24.222.166",port:22023});
+server.bind({address:"localhost",port:22023});
