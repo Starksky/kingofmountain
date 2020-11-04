@@ -8,7 +8,8 @@ server.on('error', (err) => {
 
 server.on('message', (msg, rinfo) => {
   console.log('server got: ${msg} from ${rinfo.address}:${rinfo.port}');
-  server.send("привет ANDROID", rinfo.port, rinfo.address, function(){});
+  var message = new Buffer('привет ANDROID');
+  server.send(message, 0, message.length, rinfo.port, rinfo.address, function(){});
 });
 
 server.on('listening', () => {
