@@ -99,9 +99,10 @@ setInterval(function(){
 		else if(!item.close)
 		{
 			clients.forEach(function(item1, index1){
-					if(!index1 != index)
-						item.send(JSON.stringify({msgid:10002, id_player:index, player:item}))
+					if(index1 != index)
+						item1.send(JSON.stringify({msgid:10002, id_player:index, player:item}))
 			});
+			item.close = true
 		}
 	});
 },3000);
