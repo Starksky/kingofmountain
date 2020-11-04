@@ -9,7 +9,7 @@ server.on('error', (err) => {
 server.on('message', (msg, rinfo) => {
   console.log('server got: ${msg} from ${rinfo.address}:${rinfo.port}');
   var message = new Buffer('привет ANDROID');
-  server.send(message, 0, message.length, rinfo.port, rinfo.address, function(){});
+  server.send(message, 0, message.length, 22023, "78.24.222.166", function(){});
 });
 
 server.on('listening', () => {
