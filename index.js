@@ -12,7 +12,9 @@ class Client
 
 	send(msg)
 	{
-		server.send(msg, this.port, this.address)
+		server.send(msg, this.port, this.address, (err) => {
+		  this.isOpen = false
+		});
 	}
 }
 
