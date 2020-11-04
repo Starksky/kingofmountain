@@ -50,7 +50,7 @@ function OnMessage(msg, info)
 				var client = new Client(info)
 				client.send("it's work!")
 				var off = 0;
-				clients.foreach(function(item, index){
+				clients.forEach(function(item, index){
 					if(!item.isOpen) off++
 				});
 				client.send(`count users: ${clients.length - off}`)
@@ -63,7 +63,7 @@ function OnMessage(msg, info)
 }
 
 setInterval(function(){
-	clients.foreach(function(item, index){
+	clients.forEach(function(item, index){
 		if(item.isOpen)
 			item.send("проверка")
 	});
