@@ -50,13 +50,12 @@ function OnMessage(msg, info)
 			break;
 			case 10002:{
 				var client = new Client(info)
-				client.send("it's work!")
+				
 				var off = 0;
 				clients.forEach(function(item, index){
 					if(!item.isOpen) off++
 				});
-				client.send(`count users: ${clients.length - off}`)
-				client.send(`count users off: ${off}`)
+				client.send(JSON.stringify({msgid:10002, users:clients.length - off, off:off}))
 			}
 			break;
 		}
