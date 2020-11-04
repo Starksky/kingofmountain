@@ -8,12 +8,12 @@ server.on('error', (err) => {
 
 server.on('message', (msg, rinfo) => {
   console.log('server got: ${msg} from ${rinfo.address}:${rinfo.port}');
-  server.send("привет ANDROID", rinfo.port, rinfo.address);
+  server.send("привет ANDROID", rinfo.port, rinfo.address, function(){});
 });
 
 server.on('listening', () => {
   var address = server.address();
-  console.log(`server listening ${address.address}:${address.port}`);
+  console.log('server listening ${address.address}:${address.port}');
 });
 
 server.bind({address:"78.24.222.166",port:22023});
