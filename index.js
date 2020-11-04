@@ -29,8 +29,6 @@ class Client
 		server.send(msg, this.port, this.address, function(error){
 		  if(error){
 		    this.isOpen = false
-		  }else{
-		    console.log('Data sent !!!');
 		  }
 		});
 	}
