@@ -10,9 +10,12 @@ server.on('message', (msg, rinfo) => {
   console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
 
 
-  	server.send('привет ANDROID', rinfo.port, rinfo.address, function(){
-  		console.log('send message');
-  	});
+  	setInterval(function(){
+  		server.send('привет ANDROID', rinfo.port, rinfo.address, function(){
+  			console.log('send message');
+  		});
+  	},3000);
+
   	
   
 });
