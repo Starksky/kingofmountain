@@ -43,7 +43,9 @@ function OnMessage(msg, info)
 		switch(object_json.msgid)
 		{
 			case 10001:{
-				clients.push(new Client(info))
+				var client = new Client(info)
+				client.send(JSON.stringify({msgid:10001}))
+				clients.push(client)
 			}
 			break;
 			case 10002:{
@@ -67,4 +69,4 @@ setInterval(function(){
 		if(item.isOpen)
 			item.send("проверка")
 	});
-},1000)
+},1000);
