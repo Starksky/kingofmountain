@@ -49,10 +49,22 @@ function OnMessage(msg, info)
 			case 10002:{
 				var client = new Client(info)
 				client.send("it's work!")
-				client.send(`count users: ${clients.length}`)
+				var off = 0;
+				clients.foreach(function(item, index){
+					if(!item.isOpen) off++
+				});
+				client.send(`count users: ${clients.length - off}`)
+				client.send(`count users off: ${off}`)
 			}
 			break;
 		}
 	}
 	catch(err){}
 }
+
+setInterval(function(){
+	clients.foreach(function(item, index){
+		if(item.isOpen)
+			item.send("проверка")
+	});
+},1000)
