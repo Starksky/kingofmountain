@@ -10,7 +10,7 @@ server.on('error', (err) => {
 server.on('message', (msg, rinfo) => {
   console.log('server got: ${msg} from ${rinfo.address}:${rinfo.port}');
 
-  client.send('привет ANDROID',0,14, rinfo.port, rinfo.address, function(){
+  client.send('привет ANDROID',0,14, rinfo.port, rinfo.address, function(err, bytes){
   	console.log('send message');
   	client.close()
   });
