@@ -13,7 +13,8 @@ class Client
 	send(msg)
 	{
 		server.send(msg, this.port, this.address, (err) => {
-		  this.isOpen = false
+			if(err.length)
+		  		this.isOpen = false
 		});
 	}
 }
