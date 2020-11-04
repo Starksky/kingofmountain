@@ -25,10 +25,14 @@ class Client
 
 	send(msg)
 	{
-		try{
-			server.send(msg, this.port, this.address);
-		}
-		catch(err){ this.isOpen = false }
+		
+		server.send(msg, this.port, this.address, function(error){
+		  if(error){
+		    this.isOpen = false
+		  }else{
+		    console.log('Data sent !!!');
+		  }
+		});
 	}
 }
 
