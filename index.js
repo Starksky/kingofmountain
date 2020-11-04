@@ -11,15 +11,15 @@ class Client
 		this.close = false;
 		if(player != null)
 		{
-			this.fall = player.fall;
-			this.idle = player.idle;
-			this.kickLeftPressed = player.kickLeftPressed;
-			this.kickRightPressed = player.kickRightPressed;
+			//this.fall = player.fall;
+			//this.idle = player.idle;
+			//this.kickLeftPressed = player.kickLeftPressed;
+			//this.kickRightPressed = player.kickRightPressed;
 			this.leave = player.leave;
-			this.leftPressed = player.leftPressed;
+			//this.leftPressed = player.leftPressed;
 			this.name = player.name;
 			this.position = player.position;
-			this.rightPressed = player.rightPressed;			
+			//this.rightPressed = player.rightPressed;			
 		}
 
 	}
@@ -89,7 +89,7 @@ function OnMessage(msg, info)
 	catch(err){}
 }
 
-setInterval(function(){
+/*setInterval(function(){
 	clients.forEach(function(item, index){
 		if(!item.leave)
 		{
@@ -105,4 +105,4 @@ setInterval(function(){
 			item.close = true
 		}
 	});
-},3000);
+},3000);*/
