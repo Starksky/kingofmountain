@@ -14,6 +14,7 @@ server.on('message', (msg, rinfo) => {
   	console.log('send message');
   	client.close()
   });
+  console.log('send message');
 });
 
 server.on('listening', () => {
