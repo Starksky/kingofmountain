@@ -1,5 +1,6 @@
 var dgram = require('dgram');
 var server = dgram.createSocket('udp4');
+var client = dgram.createSocket('udp4');
 
 server.on('error', (err) => {
   console.log(`server error:\n${err.stack}`);
@@ -9,8 +10,9 @@ server.on('error', (err) => {
 server.on('message', (msg, rinfo) => {
   console.log('server got: ${msg} from ${rinfo.address}:${rinfo.port}');
   var message = new Buffer('привет ANDROID');
-  server.send('привет ANDROID',0,14, rinfo.port, rinfo.address, function(){
+  client.send('привет ANDROID',0,14, rinfo.port, rinfo.address, function(){
   	console.log('send message');
+  	client.close()
   });
 });
 
