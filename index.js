@@ -44,11 +44,11 @@ function OnMessage(msg, info)
 		var object_json = JSON.parse(msg)
 		switch(object_json.msgid)
 		{
-			10001:{
+			case 10001:{
 				clients.push(new Client(info))
 			}
 			break;
-			10002:{
+			case 10002:{
 				var client = new Client(info)
 				client.send("it's work!")
 				client.send(`count users: ${clients.length}`)
