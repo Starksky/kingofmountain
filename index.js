@@ -102,6 +102,6 @@ setInterval(function(){
 	});
 
 	if(clear)
-		clients.clear();
-	
+		clients = [];
+
 },5000);
