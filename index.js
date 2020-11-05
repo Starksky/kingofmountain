@@ -17,7 +17,7 @@ class Client
 			this.position = player.position;			
 		}
 
-		console.log(`add client: ${rinfo.address}:${rinfo.port}`);
+		console.log(`add client: ${this.address}:${this.port}`);
 	}
 
 	send(msg){ server.send(msg, this.port, this.address); }
@@ -29,7 +29,7 @@ server.on('error', (err) => {
 });
 
 server.on('message', (msg, rinfo) => {
-  	console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+  	//console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
 	OnMessage(msg, rinfo)
 });
 
