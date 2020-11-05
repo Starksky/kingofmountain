@@ -82,7 +82,8 @@ function OnMessage(msg, info)
 
 setInterval(function(){
 	clients.forEach(function(item, index){
-		if(Date.now() - last_time > 3000)
+		if(!item.leave)
+		if(Date.now() - item.last_time > 3000)
 		{
 			item.leave = true
 			clients.forEach(function(item1, index1){
