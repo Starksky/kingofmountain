@@ -10,11 +10,12 @@ class Client
 
 		this.last_time = Date.now();
 		this.leave = false;
-		this.state = "";
+		
 
 		if(player != null)
 		{
 			this.name = player.name;
+			this.state = player.state;
 			this.position = player.position;			
 		}
 	}
