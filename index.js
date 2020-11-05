@@ -72,6 +72,7 @@ function OnMessage(msg, info)
 			break;
 			case 10003:{
 				clients[object_json.id_player].last_time = Date.now()
+				clients[object_json.id_player].send(JSON.stringify({msgid:10003}))
 			}
 			break;
 		}
