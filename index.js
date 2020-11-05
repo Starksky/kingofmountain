@@ -96,12 +96,15 @@ setInterval(function(){
 					if(index1 != index)
 						item1.send(JSON.stringify({msgid:10002, id_player:index, player:item}))
 				});
+				console.log(`leave client: ${item.address}:${item.port}`);
 			}
 		}
 
 	});
 
-	if(clear)
+	if(clear){
 		clients = [];
+		console.log(`clients clear`);
+	}
 
 },5000);
