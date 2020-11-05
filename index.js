@@ -7,32 +7,20 @@ class Client
 	constructor(info, player = null){
 		this.address = info.address;
 		this.port = info.port;
+
+		this.last_time = Date.now();
 		this.leave = false;
-		this.close = false;
+
 		if(player != null)
 		{
-			//this.fall = player.fall;
-			//this.idle = player.idle;
-			//this.kickLeftPressed = player.kickLeftPressed;
-			//this.kickRightPressed = player.kickRightPressed;
-			this.leave = player.leave;
-			//this.leftPressed = player.leftPressed;
 			this.name = player.name;
-			this.position = player.position;
-			//this.rightPressed = player.rightPressed;			
+			this.position = player.position;			
 		}
 
+		console.log(`add client: ${rinfo.address}:${rinfo.port}`);
 	}
 
-	send(msg)
-	{
-		
-		server.send(msg, this.port, this.address, function(error){
-		  if(error){
-		    leave = true
-		  }
-		});
-	}
+	send(msg){ server.send(msg, this.port, this.address); }
 }
 
 server.on('error', (err) => {
@@ -62,11 +50,14 @@ function OnMessage(msg, info)
 			case 10001:{
 				var id = clients.length
 				var client = new Client(info, object_json.player)
+				
 				client.send(JSON.stringify({msgid:10001, id_player:id, players:clients}))
+				
 				clients.forEach(function(item, index){
 					if(!item.leave)
 						item.send(JSON.stringify({msgid:10002, id_player:id, player:client}))
 				});
+
 				clients.push(client)
 			}
 			break;
@@ -81,7 +72,7 @@ function OnMessage(msg, info)
 			}
 			break;
 			case 10003:{
-				clients[object_json.id_player].leave = false
+				clients[object_json.id_player].last_time = Date.now()
 			}
 			break;
 		}
@@ -89,20 +80,15 @@ function OnMessage(msg, info)
 	catch(err){}
 }
 
-/*setInterval(function(){
+setInterval(function(){
 	clients.forEach(function(item, index){
-		if(!item.leave)
+		if(Date.now() - last_time > 3000)
 		{
-			item.send(JSON.stringify({msgid:10003}))
 			item.leave = true
-		}
-		else if(!item.close)
-		{
 			clients.forEach(function(item1, index1){
-					if(index1 != index)
-						item1.send(JSON.stringify({msgid:10002, id_player:index, player:item}))
+				if(index1 != index)
+					item1.send(JSON.stringify({msgid:10002, id_player:index, player:item}))
 			});
-			item.close = true
 		}
 	});
-},3000);*/
+},5000);
