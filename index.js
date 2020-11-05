@@ -101,7 +101,7 @@ setInterval(function(){
 
 	});
 
-	if(clear){
+	if(clear && clients.length){
 		clients = [];
 		console.log(`clients clear`);
 	}
