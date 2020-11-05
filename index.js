@@ -81,15 +81,27 @@ function OnMessage(msg, info)
 }
 
 setInterval(function(){
+
+	var clear = true;
+
 	clients.forEach(function(item, index){
 		if(!item.leave)
-		if(Date.now() - item.last_time > 3000)
 		{
-			item.leave = true
-			clients.forEach(function(item1, index1){
-				if(index1 != index)
-					item1.send(JSON.stringify({msgid:10002, id_player:index, player:item}))
-			});
+			clear = false
+			if(Date.now() - item.last_time > 3000)
+			{
+				item.leave = true;
+				clear = true;
+				clients.forEach(function(item1, index1){
+					if(index1 != index)
+						item1.send(JSON.stringify({msgid:10002, id_player:index, player:item}))
+				});
+			}
 		}
+
 	});
+
+	if(clear)
+		clients.clear();
+	
 },5000);
