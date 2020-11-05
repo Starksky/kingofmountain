@@ -16,8 +16,6 @@ class Client
 			this.name = player.name;
 			this.position = player.position;			
 		}
-
-		console.log(`add client: ${this.address}:${this.port}`);
 	}
 
 	send(msg){ server.send(msg, this.port, this.address); }
@@ -58,7 +56,8 @@ function OnMessage(msg, info)
 						item.send(JSON.stringify({msgid:10002, id_player:id, player:client}))
 				});
 
-				clients.push(client)
+				clients.push(client)ж
+				console.log(`add client: ${client.address}:${client.port}`);
 			}
 			break;
 			case 10002:{
