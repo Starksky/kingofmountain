@@ -56,7 +56,7 @@ function OnMessage(msg, info)
 						item.send(JSON.stringify({msgid:10002, id_player:id, player:client}))
 				});
 
-				clients.push(client)ж
+				clients.push(client);
 				console.log(`add client: ${client.address}:${client.port}`);
 			}
 			break;
