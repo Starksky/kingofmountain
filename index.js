@@ -10,6 +10,7 @@ class Client
 
 		this.last_time = Date.now();
 		this.leave = false;
+		this.state = "";
 
 		if(player != null)
 		{
